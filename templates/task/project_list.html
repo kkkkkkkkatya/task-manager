@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Projects
+    <a href=# class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+
+  {% if project_list %}
+    {% for project in project_list %}
+
+      <div class="container mt-sm-5">
+        <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
+             style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/desktop.jpg');"
+             loading="lazy">
+          <span class="mask bg-gradient-dark"></span>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 ms-lg-5">
+                {% for team in project.teams.all %}
+                  <h4 class="text-white">Built by {{ team.name }}</h4>
+                {% endfor %}
+                <h1 class="text-white">{{ project.name }}</h1>
+                <p class="lead text-white opacity-8">{{ project.description }}</p>
+                <a href="{% url 'task:project-detail' pk=project.id %}" 
+                   class="nav-link text-white icon-move-right">
+                  Read docs
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  {% else %}
+    <p>There are no manufacturers in the service.</p>
+  {% endif %}
+{% endblock %}

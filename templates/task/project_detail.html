@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    {{ project.name }}
+    {#    <a href="{% url 'taxi:car-delete' pk=car.id %}" class="btn btn-danger link-to-page">#}
+    {#      Delete#}
+    {#    </a>#}
+    {##}
+    {#    <a href="{% url 'taxi:car-update' pk=car.id %}" class="btn btn-secondary link-to-page">#}
+    {#      Update#}
+    {#    </a>#}
+  </h1>
+  <p>{{ project.description }}</p>
+  <h1>
+    Tasks
+
+  </h1>
+  <hr>
+  <ul>
+    {% for task in project.tasks.all %}
+      <div class="container mt-sm-5">
+        <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl bg-light shadow">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 ms-lg-5">
+                <h4 class="text-dark">Task Type: {{ task.task_type.name }}</h4>
+                <h1 class="text-dark">{{ task.name }}</h1>
+                <p class="lead text-dark opacity-8">{{ task.description }}</p>
+
+                <p class="text-muted">
+                  <strong>Deadline:</strong> {{ task.deadline }} |
+                  <strong>Priority:</strong>
+                  <span
+                      class="{% if task.priority == 'Urgent' %}text-danger{% elif task.priority == 'High' %}text-warning{% elif task.priority == 'Medium' %}text-info{% else %}text-success{% endif %}">
+                {{ task.priority }}
+              </span>
+                </p>
+
+                <p><strong>Assigned Workers:</strong></p>
+                <ul>
+                  {% for worker in task.assignees.all %}
+                    <li>{{ worker.first_name }} {{ worker.last_name }} ({{ worker.position.name }})</li>
+                  {% empty %}
+                    <li>No assignees</li>
+                  {% endfor %}
+                </ul>
+
+                <!-- Status as a Checkbox -->
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="taskStatus{{ task.id }}"
+                         {% if task.is_completed %}checked{% endif %} disabled>
+                  <label class="form-check-label" for="taskStatus{{ task.id }}">
+                    Completed
+                  </label>
+                </div>
+
+                <a href="#" class="text-primary icon-move-right mt-3">
+                  View Details
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  </ul>
+{% endblock %}
+

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Project, Team, Worker
 
@@ -16,3 +18,17 @@ def index(request):
     }
 
     return render(request, "task/index.html", context=context)
+
+
+class ProjectListView(LoginRequiredMixin, generic.ListView):
+    model = Project
+    context_object_name = "project_list"
+    template_name = "task/project_list.html"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Project.objects.prefetch_related("teams")
+
+
+class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Project
