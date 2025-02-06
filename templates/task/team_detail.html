@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ team.name }}</h1>
+
+  <h2>Members:</h2>
+  <ul>
+    {% for member in team_members %}
+      <li>
+        {{ member.username }} - {{ member.first_name }} {{ member.last_name }} ({{ member.position.name }})
+      </li>
+    {% empty %}
+      <li>No members in this team.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Projects:</h2>
+  <ul>
+    {% for project in projects %}
+      <li>{{ project.name }}: {{ project.description }}</li>
+    {% empty %}
+      <li>This team is not assigned to any projects.</li>
+    {% endfor %}
+  </ul>
+  
+  <a href="{% url 'task:team-update' pk=team.pk %}" class="btn btn-secondary">Update Team</a>
+  <form action="{% url 'task:team-delete' pk=team.pk %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete Team</button>
+  </form>
+{% endblock %}
