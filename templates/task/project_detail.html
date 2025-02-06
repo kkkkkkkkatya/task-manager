@@ -3,7 +3,12 @@
 {% block content %}
   <h1>
     {{ project.name }}
-    <a href="{% url 'task:project-delete' pk=project.id %}" class="btn btn-danger link-to-page">Delete</a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+        data-bs-target="#deleteProjectModal">
+    Delete 
+</button>
+    
+
     <a href="{% url 'task:project-update' pk=project.id %}" class="btn btn-secondary link-to-page">Update</a>
   </h1>
   <p>{{ project.description }}</p>
@@ -80,7 +85,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -88,4 +92,29 @@
       </div>
     {% endfor %}
   </ul>
+   <!-- Delete Project Modal -->
+              <div class="modal fade" id="deleteProjectModal" tabindex="-1"
+     aria-labelledby="deleteProjectLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProjectLabel">Confirm Project Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fs-6 text-muted">
+                    Are you sure you want to delete your project? <br>
+                    All associated tasks will also be deleted.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form action="{% url 'task:project-delete' pk=project.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

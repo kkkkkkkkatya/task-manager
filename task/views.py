@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -145,3 +146,34 @@ class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Team
     success_url = reverse_lazy("task:team-list")
+
+
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Worker
+    template_name = "task/worker_detail.html"  # Update to your actual template path
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        worker = self.object
+        context['worker_teams'] = worker.teams.all()
+
+        return context
+
+
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Worker
+    fields = "__all__"
+
+    def get_success_url(self):
+        return reverse_lazy("task:worker-detail", kwargs={"pk": self.object.pk})
+
+
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("task:index")
+
+    def delete(self, request, *args, **kwargs):
+        user = self.get_object()  # Get the worker being deleted
+        if user == request.user:  # Ensure the logged-in user is deleting themselves
+            logout(request)  # Log out the user
+        return super().delete(request, *args, **kwargs)
