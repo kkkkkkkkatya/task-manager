@@ -4,14 +4,17 @@ from .models import Task, Project, Team
 
 User = get_user_model()
 
+### form for task
 class TaskForm(forms.ModelForm):
+    #change deadline widget
     deadline = forms.DateField(
-        widget=forms.SelectDateWidget(),  # Mini calendar dropdown for Year, Month, Day
+        widget=forms.SelectDateWidget(),
         required=True
     )
 
+    #change assignees widget
     assignees = forms.ModelMultipleChoiceField(
-        queryset=User.objects.none(),  # Empty initially, will be set in __init__
+        queryset=User.objects.none(),
         widget=forms.CheckboxSelectMultiple,
         label="Assignees (Position)"
     )
@@ -21,19 +24,19 @@ class TaskForm(forms.ModelForm):
         fields = ["name", "description", "deadline", "is_completed", "priority", "task_type", "assignees"]
 
     def __init__(self, *args, **kwargs):
-        project = kwargs.pop("project", None)  # Get the project instance from the view
+        project = kwargs.pop("project", None)
         super().__init__(*args, **kwargs)
 
         if project:
-            self.fields["assignees"].queryset = User.objects.filter(teams__in=project.teams.all())
- # Filter by project team
+            self.fields["assignees"].queryset = User.objects.filter(teams__in=project.teams.all()) #gives only team members
 
-            # Modify the display labels to show user name + position
             self.fields["assignees"].label_from_instance = lambda user: f"{user.first_name} {user.last_name} ({user.position.name})"
 
 
+### form for team
 class TeamForm(forms.ModelForm):
 
+    #change members widget
     members = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),  # Empty initially, will be set in __init__
         widget=forms.CheckboxSelectMultiple,

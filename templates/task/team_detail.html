@@ -14,45 +14,45 @@
     {% endfor %}
   </ul>
 
-<h2>Projects:</h2>
-<ul>
-  {% for project in projects %}
-    <li>
-      <a href="{% url 'task:project-detail' pk=project.id %}" class="project-link">{{ project.name }}</a>: {{ project.description }}
-    </li>
-  {% empty %}
-    <li>This team is not assigned to any projects.</li>
-  {% endfor %}
-</ul>
-
+  <h2>Projects:</h2>
+  <ul>
+    {% for project in projects %}
+      <li>
+        <a href="{% url 'task:project-detail' pk=project.id %}"
+           class="project-link">{{ project.name }}</a>: {{ project.description }}
+      </li>
+    {% empty %}
+      <li>This team is not assigned to any projects.</li>
+    {% endfor %}
+  </ul>
   
   <a href="{% url 'task:team-update' pk=team.pk %}" class="btn btn-secondary">Update Team</a>
   <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-            data-bs-target="#deleteTeamModal">
-        Delete 
-    </button>
+          data-bs-target="#deleteTeamModal">
+    Delete
+  </button>
   <div class="modal fade" id="deleteTeamModal" tabindex="-1"
-     aria-labelledby="deleteTeamLabel" aria-hidden="true">
+       aria-labelledby="deleteTeamLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteTeamLabel">Confirm Team Deletion</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="fs-6 text-muted">
-                    Are you sure you want to delete team? <br>
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="{% url 'task:team-delete' pk=team.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteTeamLabel">Confirm Team Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <p class="fs-6 text-muted">
+            Are you sure you want to delete team? <br>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <form action="{% url 'task:team-delete' pk=team.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
 {% endblock %}

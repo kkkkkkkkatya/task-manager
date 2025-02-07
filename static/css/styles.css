@@ -1,7 +1,6 @@
-/* Apply gradient background to the entire page */
 body {
-    background: linear-gradient(to bottom right, #f6d5dc, #f6d5dc); /* Olive green gradient */
-    color: #333; /* Darker text for better readability */
+    background: linear-gradient(to bottom right, #f6d5dc, #f6d5dc);
+    color: #333;
     font-family: 'Arial', sans-serif;
 }
 
@@ -14,13 +13,14 @@ body {
   color: #f689a8;
 }
 
+/* sidebar */
 .nav {
     display: flex;
-    flex-direction: column; /* Stack links vertically */
+    flex-direction: column;
 }
 
 .nav li {
-    margin-bottom: 15px; /* Space between links */
+    margin-bottom: 15px;
 }
 
 .sidebar-links {
@@ -30,12 +30,10 @@ body {
 }
 
 .sidebar-links:hover {
-  color: #f689a8; /* Change this to your desired hover color */
+  color: #f689a8;
 }
 
-
-
-/* Hero Section */
+/* home page */
 .hero {
     height: 60vh;
     display: flex;
@@ -43,12 +41,11 @@ body {
     justify-content: center;
     text-align: center;
     color: #393939;
-    background: linear-gradient(to right, #f3bfcb, #f689a8); /* Dark to light olive green */
+    background: linear-gradient(to right, #f3bfcb, #f689a8);
     border-radius: 15px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Hero Text */
 .hero-content h1 {
     font-size: 3rem;
     font-weight: bold;
@@ -59,7 +56,6 @@ body {
     opacity: 0.9;
 }
 
-/* Stats Section */
 .stats {
     margin-top: 30px;
     background-color: white;
@@ -69,7 +65,7 @@ body {
 }
 
 .stats h2 {
-    color: #f689a8; /* Dark Olive Green */
+    color: #f689a8;
     font-size: 2.5rem;
 }
 
@@ -78,20 +74,21 @@ body {
     color: #777;
 }
 
+/* sidebar */
 .sidebar {
-    position: fixed;  /* Fixes the sidebar in place */
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* Full height */
-    width: 280px; /* Fixed width */
-    background-color: #212529; /* Dark background */
+    height: 100vh;
+    width: 280px;
+    background-color: #212529;
     padding: 15px;
-    overflow-y: auto; /* Allows scrolling if the sidebar has a lot of items */
-    z-index: 1000; /* Ensures it stays above other content */
+    overflow-y: auto;
+    z-index: 1000;
 }
 
 .main-content {
-    margin-left: 280px; /* Push content to the right so it doesn't overlap */
+    margin-left: 280px;
     padding: 20px;
 }
 
@@ -104,7 +101,7 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 600px;
-    margin: auto; /* 10px from the top */
+    margin: auto;
     position: relative;
 }
 
@@ -177,21 +174,20 @@ body {
 }
 
 /* project_list */
-
 .page-header {
     position: relative;
-    background-color: #f689a8; /* Set the background color to gray */
-    border-radius: 15px; /* Apply border radius */
+    background-color: #f689a8;
+    border-radius: 15px;
 }
 
 .mask {
-    display: none; /* Remove the mask since we no longer have a background image */
+    display: none;
 }
 
 h1 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #393939; /* Keep text color white */
+    color: #393939;
     text-align: center;
     margin-bottom: 1.5rem;
 }
@@ -199,38 +195,37 @@ h1 {
 .btn-create {
     background-color: #353535;
     border-color: #353535;
-    color: #f6d5dc; /* Text color */
-    font-size: 1.125rem; /* Large button size */
-    margin-left: 1rem; /* Space between title and button */
+    color: #f6d5dc;
+    font-size: 1.125rem;
+    margin-left: 1rem;
 }
 
 .btn-create:hover {
     background: none;
     border-color: #353535;
-    color: #353535; /* Text color */
+    color: #353535;
 }
 
 .project-name {
     font-size: 2rem;
     font-weight: 600;
     text-align: left;
-    color: #393939; /* Keep project name color white */
+    color: #393939;
 }
 
 .project-description {
-    color: #ffffff; /* Keep description color white */
-    opacity: 0.8; /* Slightly transparent */
+    color: #ffffff;
+    opacity: 0.8;
 }
 
 .no-projects {
     text-align: center;
-    margin-top: 3rem; /* Space above the message */
+    margin-top: 3rem;
 }
 
-/* Updated styles for link color */
 .nav-link {
-    color: #ffffff; /* Default text color */
-    text-decoration: none; /* Remove underline */
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .nav-link:hover,
@@ -239,8 +234,6 @@ h1 {
 }
 
 /* project_detail */
-
-/* Add this new class for project details */
 .new-p-d {
     color: #343a40;
 
@@ -248,8 +241,8 @@ h1 {
 
 .task-header {
     display: flex;
-    justify-content: space-between; /* Align items to the left and right */
-    align-items: center; /* Center vertically */
+    justify-content: space-between;
+    align-items: center;
     margin-top: 2.5rem;
 }
 
@@ -264,23 +257,22 @@ h1 {
     border-color: #353535;
 }
 
-/* New button styles for dark-grey color */
 .btn-dark-grey {
-    background-color: #7c7c7c; /* Dark grey background */
-    color: #ffffff; /* White text */
+    background-color: #7c7c7c;
+    color: #ffffff;
 }
 
 .btn-dark-grey:hover {
-    background-color: #5c5c5c; /* Lighter grey on hover */
-    color: #ffffff; /* White text on hover */
+    background-color: #5c5c5c;
+    color: #ffffff;
 }
 
-/* Adjust the task info styles for better alignment */
+/* task info */
 .task-info {
     display: flex;
-    justify-content: space-between; /* Align task type and buttons */
-    align-items: center; /* Center vertically */
-    margin-bottom: 0.5rem; /* Space below task info */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 .task-name {

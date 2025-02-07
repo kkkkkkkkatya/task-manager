@@ -124,40 +124,40 @@
 
 
 {% block extra_js %}
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".task-checkbox").forEach(function(checkbox) {
-        checkbox.addEventListener("change", function() {
-            let taskId = this.dataset.taskId;
-            let isCompleted = this.checked;
-            let csrfToken = "{{ csrf_token }}";  
+  <script>
+  // script for checkbox updating directly from project-detail page
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll(".task-checkbox").forEach(function (checkbox) {
+              checkbox.addEventListener("change", function () {
+                  let taskId = this.dataset.taskId;
+                  let isCompleted = this.checked;
+                  let csrfToken = "{{ csrf_token }}";
 
-            fetch("{% url 'task:task-update' pk=0 %}".replace("0", taskId), { 
- // Use the existing update URL
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken,
-                    "X-Requested-With": "XMLHttpRequest"  // Important for detecting AJAX in Django
-                },
-                body: JSON.stringify({ "is_completed": isCompleted })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("Task status updated!");
-                } else {
-                    alert("Failed to update task.");
-                    this.checked = !isCompleted; // Revert if update fails
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred.");
-                this.checked = !isCompleted;
-            });
-        });
-    });
-});
-</script>
+                  fetch("{% url 'task:task-update' pk=0 %}".replace("0", taskId), {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "X-CSRFToken": csrfToken,
+                          "X-Requested-With": "XMLHttpRequest"  // Important for detecting AJAX in Django
+                      },
+                      body: JSON.stringify({"is_completed": isCompleted})
+                  })
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.success) {
+                              console.log("Task status updated!");
+                          } else {
+                              alert("Failed to update task.");
+                              this.checked = !isCompleted;
+                          }
+                      })
+                      .catch(error => {
+                          console.error("Error:", error);
+                          alert("An error occurred.");
+                          this.checked = !isCompleted;
+                      });
+              });
+          });
+      });
+  </script>
 {% endblock %}

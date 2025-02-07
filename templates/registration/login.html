@@ -2,23 +2,36 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
+  <style>
+      .submit-btn {
+          background-color: #f689a8;
+          color: #46484c;
+          border-color: #46484c;
+      }
 
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+      .submit-btn:hover {
+          background: none;
+          color: #46484c;
+          border-color: #46484c;
+      }
+  </style>
 
-<h1>Login</h1>
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
 
-{% if next %}
-  <p>Please login to see this page.</p>
-{% endif %}
+  <h1>Login</h1>
 
-<form method="post" action="{% url 'login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
+  {% if next %}
+    <p>Please login to see this page.</p>
+  {% endif %}
 
-  <input type="submit" value="Login" class="btn btn-primary" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <input type="submit" value="Login" class="btn btn-primary submit-btn"/>
+    <input type="hidden" name="next" value="{{ next }}"/>
+  </form>
 
 {% endblock %}
