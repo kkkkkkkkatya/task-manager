@@ -14,14 +14,17 @@
     {% endfor %}
   </ul>
 
-  <h2>Projects:</h2>
-  <ul>
-    {% for project in projects %}
-      <li>{{ project.name }}: {{ project.description }}</li>
-    {% empty %}
-      <li>This team is not assigned to any projects.</li>
-    {% endfor %}
-  </ul>
+<h2>Projects:</h2>
+<ul>
+  {% for project in projects %}
+    <li>
+      <a href="{% url 'task:project-detail' pk=project.id %}" class="project-link">{{ project.name }}</a>: {{ project.description }}
+    </li>
+  {% empty %}
+    <li>This team is not assigned to any projects.</li>
+  {% endfor %}
+</ul>
+
   
   <a href="{% url 'task:team-update' pk=team.pk %}" class="btn btn-secondary">Update Team</a>
   <button type="button" class="btn btn-danger" data-bs-toggle="modal"

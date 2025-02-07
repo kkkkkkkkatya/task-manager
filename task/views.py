@@ -2,10 +2,14 @@ from django.contrib.auth import logout
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 
-from .forms import TaskForm
+from .forms import TaskForm, TeamForm
 from .models import Project, Team, Worker, Task
 
 
@@ -84,12 +88,29 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        task = get_object_or_404(Task, pk=self.kwargs["pk"])  # Get the Task
-        kwargs["project"] = task.project  # Pass its Project to the form
+        task = get_object_or_404(Task, pk=self.kwargs["pk"])
+        kwargs["project"] = task.project
         return kwargs
 
     def get_success_url(self):
         return reverse_lazy("task:project-detail", kwargs={"pk": self.object.project.pk})
+
+    # Handle AJAX requests for updating is_completed
+    def dispatch(self, request, *args, **kwargs):
+        if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return self.handle_ajax(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
+
+    def handle_ajax(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            print("Received Data:", data)
+            task = get_object_or_404(Task, pk=self.kwargs["pk"])
+            task.is_completed = bool(data.get("is_completed"))
+            task.save()
+            return JsonResponse({"success": True, "is_completed": task.is_completed})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=400)
 
 
 class TaskDeleteView(LoginRequiredMixin, View):
@@ -129,7 +150,7 @@ class TeamDetailView(LoginRequiredMixin, generic.DetailView):
 
 class TeamCreateView(LoginRequiredMixin, generic.CreateView):
     model = Team
-    fields = "__all__"
+    form_class = TeamForm
 
     def get_success_url(self):
         return reverse_lazy("task:team-detail", kwargs={"pk": self.object.pk})
@@ -137,7 +158,7 @@ class TeamCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Team
-    fields = "__all__"
+    form_class = TeamForm
 
     def get_success_url(self):
         return reverse_lazy("task:team-detail", kwargs={"pk": self.object.pk})
@@ -162,7 +183,7 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
-    fields = "__all__"
+    fields = ["username", "first_name", "last_name", "position", "email"]
 
     def get_success_url(self):
         return reverse_lazy("task:worker-detail", kwargs={"pk": self.object.pk})

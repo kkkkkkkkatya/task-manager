@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Task, Project
+from .models import Task, Project, Team
 
 User = get_user_model()
 
@@ -30,3 +30,16 @@ class TaskForm(forms.ModelForm):
 
             # Modify the display labels to show user name + position
             self.fields["assignees"].label_from_instance = lambda user: f"{user.first_name} {user.last_name} ({user.position.name})"
+
+
+class TeamForm(forms.ModelForm):
+
+    members = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),  # Empty initially, will be set in __init__
+        widget=forms.CheckboxSelectMultiple,
+        label="Members (Position)"
+    )
+
+    class Meta:
+        model = Team
+        fields = "__all__"

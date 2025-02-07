@@ -1,35 +1,288 @@
+/* Apply gradient background to the entire page */
 body {
-
+    background: linear-gradient(to bottom right, #f6d5dc, #f6d5dc); /* Olive green gradient */
+    color: #333; /* Darker text for better readability */
+    font-family: 'Arial', sans-serif;
 }
 
-.hero {
-    position: relative;
-    text-align: center;
+.project-link {
+  text-decoration: none;
+  color: #353535;
+}
+
+.project-link:hover {
+  color: #f689a8;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column; /* Stack links vertically */
+}
+
+.nav li {
+    margin-bottom: 15px; /* Space between links */
+}
+
+.sidebar-links {
     color: white;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+.sidebar-links:hover {
+  color: #f689a8; /* Change this to your desired hover color */
+}
+
+
+
+/* Hero Section */
+.hero {
     height: 60vh;
-    background: url('https://source.unsplash.com/1600x900/?fountain,garden') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #393939;
+    background: linear-gradient(to right, #f3bfcb, #f689a8); /* Dark to light olive green */
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+/* Hero Text */
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
 }
 
-.hero-content {
-    position: relative;
-    z-index: 1;
-    padding-top: 15vh;
+.hero-content p {
+    font-size: 1.5rem;
+    opacity: 0.9;
 }
 
+/* Stats Section */
 .stats {
-    margin-top: -50px;
+    margin-top: 30px;
     background-color: white;
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stats h2 {
+    color: #f689a8; /* Dark Olive Green */
+    font-size: 2.5rem;
+}
+
+.stats p {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+.sidebar {
+    position: fixed;  /* Fixes the sidebar in place */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Full height */
+    width: 280px; /* Fixed width */
+    background-color: #212529; /* Dark background */
+    padding: 15px;
+    overflow-y: auto; /* Allows scrolling if the sidebar has a lot of items */
+    z-index: 1000; /* Ensures it stays above other content */
+}
+
+.main-content {
+    margin-left: 280px; /* Push content to the right so it doesn't overlap */
+    padding: 20px;
+}
+
+
+/* Profile Card */
+.profile-card {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: auto; /* 10px from the top */
+    position: relative;
+}
+
+.profile-card a {
+    color: #393939;
+    text-decoration: none;
+}
+
+.profile-card a:hover {
+    color: darkgray;
+    text-decoration: none;
+}
+
+.btn-edit-profile {
+    color: white !important;
+}
+
+
+/* Profile Header */
+.profile-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.profile-header h4 {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Styled List */
+.profile-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-section ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-section ul li:last-child {
+    border-bottom: none;
+}
+
+.priority-urgent {
+    color: #dc3545;
+}
+
+.priority-high {
+    color: #ffc107;
+}
+
+.priority-medium {
+    color: #17a2b8;
+}
+
+.priority-low {
+    color: #28a745;
+}
+
+/* Buttons */
+.profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-buttons .btn {
+    width: 48%;
+}
+
+/* project_list */
+
+.page-header {
+    position: relative;
+    background-color: #f689a8; /* Set the background color to gray */
+    border-radius: 15px; /* Apply border radius */
+}
+
+.mask {
+    display: none; /* Remove the mask since we no longer have a background image */
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #393939; /* Keep text color white */
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-create {
+    background-color: #353535;
+    border-color: #353535;
+    color: #f6d5dc; /* Text color */
+    font-size: 1.125rem; /* Large button size */
+    margin-left: 1rem; /* Space between title and button */
+}
+
+.btn-create:hover {
+    background: none;
+    border-color: #353535;
+    color: #353535; /* Text color */
+}
+
+.project-name {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: left;
+    color: #393939; /* Keep project name color white */
+}
+
+.project-description {
+    color: #ffffff; /* Keep description color white */
+    opacity: 0.8; /* Slightly transparent */
+}
+
+.no-projects {
+    text-align: center;
+    margin-top: 3rem; /* Space above the message */
+}
+
+/* Updated styles for link color */
+.nav-link {
+    color: #ffffff; /* Default text color */
+    text-decoration: none; /* Remove underline */
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #353535;
+}
+
+/* project_detail */
+
+/* Add this new class for project details */
+.new-p-d {
+    color: #343a40;
+
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between; /* Align items to the left and right */
+    align-items: center; /* Center vertically */
+    margin-top: 2.5rem;
+}
+
+.task-header a {
+    color: #f6d5dc;
+    background-color: #353535;
+}
+
+.task-header a:hover {
+    color: #353535;
+    background-color: #f6d5dc;
+    border-color: #353535;
+}
+
+/* New button styles for dark-grey color */
+.btn-dark-grey {
+    background-color: #7c7c7c; /* Dark grey background */
+    color: #ffffff; /* White text */
+}
+
+.btn-dark-grey:hover {
+    background-color: #5c5c5c; /* Lighter grey on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+/* Adjust the task info styles for better alignment */
+.task-info {
+    display: flex;
+    justify-content: space-between; /* Align task type and buttons */
+    align-items: center; /* Center vertically */
+    margin-bottom: 0.5rem; /* Space below task info */
+}
+
+.task-name {
+    text-align: left;
 }

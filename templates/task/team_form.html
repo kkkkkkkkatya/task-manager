@@ -2,12 +2,25 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
+  <style>
+      .submit-btn {
+          background-color: #f689a8;
+          color: #46484c;
+          border-color: #46484c;
+      }
+
+      .submit-btn:hover {
+          background: none;
+          color: #46484c;
+          border-color: #46484c;
+      }
+  </style>
   <h1>{{ object|yesno:"Update,Create" }} team</h1>
   <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
 
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" value="Submit" class="btn btn-primary submit-btn">
   </form>
 {% endblock %}
 
