@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Task, Project, Team
+from task.models import Task, Project, Team
 
 User = get_user_model()
 

@@ -7,8 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 import json
 
-from .forms import TaskForm, TeamForm
-from .models import Project, Team, Worker, Task
+from task.forms import TaskForm, TeamForm
+from task.models import Project, Team, Worker, Task
 
 
 def index(request):
