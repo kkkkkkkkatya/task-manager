@@ -3,6 +3,15 @@
 ## Description
 Task Manager is a web-based application that allows users to create, track, and manage tasks efficiently. It provides a collaborative space where team members can assist each other in project development. The project is designed to be flexible and can easily be integrated into larger systems.
 
+## Live Demo 🌍
+You can try the Task Manager online here:  
+🔗 **[Visit Task Manager](https://your-deployed-site.com/)**  
+
+### **Test User Credentials**
+To explore the platform without signing up, use the following test account:
+- **Login:** `user`
+- **Password:** `user12345`
+
 ## Visuals
 ### Database Structure
 The database schema can be found in `database_schema.svg`.
