@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="profile-card">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <h1>{{ worker.first_name }} {{ worker.last_name }}</h1>
+        <h4 class="text-muted">@{{ worker.username }}</h4>
+        <p><strong>Position:</strong> {{ worker.position.name }}</p>
+      </div>
+
+      <hr>
+
+      <!-- Teams Section -->
+      <div class="profile-section">
+        <h3>Teams</h3>
+        {% if worker.teams.all %}
+          <ul>
+            {% for team in worker.teams.all %}
+              <li>
+                <a href="{% url 'task:team-detail' pk=team.id %}">{{ team.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">This worker is not part of any team.</p>
+        {% endif %}
+      </div>
+
+      <hr>
+
+      <!-- Assigned Tasks -->
+      <div class="profile-section">
+        <h3>Assigned Tasks</h3>
+        {% if worker.tasks.all %}
+          <ul>
+            {% for task in worker.tasks.all %}
+              <li>
+                <a href="{% url 'task:task-update' pk=task.id %}">{{ task.name }}</a> -
+                <strong>Project:</strong> <a
+                  href="{% url 'task:project-detail' pk=task.project.id %}">{{ task.project.name }}</a> |
+                <strong>Deadline:</strong> {{ task.deadline }} |
+                <strong>Priority:</strong>
+                <span class="badge-priority 
+                  {% if task.priority == 'Urgent' %}priority-urgent{% elif task.priority == 'High' %}priority-high{% elif task.priority == 'Medium' %}priority-medium{% else %}priority-low{% endif %}">
+                  {{ task.priority }}
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">No tasks assigned.</p>
+        {% endif %}
+      </div>
+
+      <hr>
+
+      <!-- Buttons -->
+      <div class="profile-buttons">
+        <a href="{% url 'task:worker-update' pk=worker.id %}" class="btn btn-secondary btn-edit-profile">Edit
+          Profile</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteWorkerModal">
+          Delete Profile
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="deleteWorkerModal" tabindex="-1" aria-labelledby="deleteWorkerLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteWorkerLabel">Confirm Account Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete your account? This action cannot be undone.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <form action="{% url 'task:worker-delete' pk=worker.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

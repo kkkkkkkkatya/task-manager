@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="project-detail-header">
+    {{ project.name }}
+    <a href="{% url 'task:project-update' pk=project.id %}" class="btn btn-dark-grey">Update</a>
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+            data-bs-target="#deleteProjectModal">
+      Delete
+    </button>
+  </h1>
+  <h4 class="new-p-d project-description">{{ project.description }}</h4>
+
+  <h2 class="task-header">
+    Tasks:
+    <a href="{% url 'task:task-create' pk=project.id %}" class="btn btn-success float-end ">Create Task</a>
+  </h2>
+
+  <hr>
+
+  <ul>
+    {% for task in project.tasks.all %}
+      <div class="container mt-sm-5">
+        <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl bg-light shadow">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 ms-lg-5">
+                <h4 class="text-dark d-flex justify-content-between align-items-center task-info">
+                  <span>Task Type: {{ task.task_type.name }}</span>
+                  <div>
+                    <a href="{% url 'task:task-update' pk=task.id %}" class="btn btn-dark-grey">Update</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteTaskModal{{ task.id }}">
+                      Delete
+                    </button>
+                  </div>
+                </h4>
+
+                <h1 class="text-dark task-name">{{ task.name }}</h1>
+                <p class="lead text-dark opacity-8">{{ task.description }}</p>
+
+                <p class="text-muted">
+                  <strong>Deadline:</strong> {{ task.deadline }} |
+                  <strong>Priority:</strong>
+                  <span
+                      class="{% if task.priority == 'Urgent' %}text-danger{% elif task.priority == 'High' %}text-warning{% elif task.priority == 'Medium' %}text-info{% else %}text-success{% endif %}">
+                    {{ task.priority }}
+                  </span>
+                </p>
+
+                <p><strong>Assigned Workers:</strong></p>
+                <ul>
+                  {% for worker in task.assignees.all %}
+                    <li>{{ worker.first_name }} {{ worker.last_name }} ({{ worker.position.name }})</li>
+                  {% empty %}
+                    <li>No assignees</li>
+                  {% endfor %}
+                </ul>
+
+                <!-- Status as a Checkbox -->
+                <div class="form-check">
+                  <input class="form-check-input task-checkbox" type="checkbox"
+                         id="taskStatus{{ task.id }}" data-task-id="{{ task.id }}"
+                         {% if task.is_completed %}checked{% endif %}>
+                  <label class="form-check-label" for="taskStatus{{ task.id }}">Completed</label>
+                </div>
+
+                <!-- Delete Task Modal -->
+                <div class="modal fade" id="deleteTaskModal{{ task.id }}" tabindex="-1"
+                     aria-labelledby="deleteTaskLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteTaskLabel">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete the task "{{ task.name }}"?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="{% url 'task:task-delete' pk=task.id %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </ul>
+
+  <!-- Delete Project Modal -->
+  <div class="modal fade" id="deleteProjectModal" tabindex="-1"
+       aria-labelledby="deleteProjectLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteProjectLabel">Confirm Project Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="fs-6 text-muted">
+            Are you sure you want to delete your project? <br>
+            All associated tasks will also be deleted.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <form action="{% url 'task:project-delete' pk=project.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block extra_js %}
+  <script>
+  // script for checkbox updating directly from project-detail page
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll(".task-checkbox").forEach(function (checkbox) {
+              checkbox.addEventListener("change", function () {
+                  let taskId = this.dataset.taskId;
+                  let isCompleted = this.checked;
+                  let csrfToken = "{{ csrf_token }}";
+
+                  fetch("{% url 'task:task-update' pk=0 %}".replace("0", taskId), {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "X-CSRFToken": csrfToken,
+                          "X-Requested-With": "XMLHttpRequest"  // Important for detecting AJAX in Django
+                      },
+                      body: JSON.stringify({"is_completed": isCompleted})
+                  })
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.success) {
+                              console.log("Task status updated!");
+                          } else {
+                              alert("Failed to update task.");
+                              this.checked = !isCompleted;
+                          }
+                      })
+                      .catch(error => {
+                          console.error("Error:", error);
+                          alert("An error occurred.");
+                          this.checked = !isCompleted;
+                      });
+              });
+          });
+      });
+  </script>
+{% endblock %}

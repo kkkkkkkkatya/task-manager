@@ -1,0 +1,280 @@
+body {
+    background: linear-gradient(to bottom right, #f6d5dc, #f6d5dc);
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.project-link {
+  text-decoration: none;
+  color: #353535;
+}
+
+.project-link:hover {
+  color: #f689a8;
+}
+
+/* sidebar */
+.nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav li {
+    margin-bottom: 15px;
+}
+
+.sidebar-links {
+    color: white;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+.sidebar-links:hover {
+  color: #f689a8;
+}
+
+/* home page */
+.hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #393939;
+    background: linear-gradient(to right, #f3bfcb, #f689a8);
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+
+.stats {
+    margin-top: 30px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stats h2 {
+    color: #f689a8;
+    font-size: 2.5rem;
+}
+
+.stats p {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    background-color: #212529;
+    padding: 15px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.main-content {
+    margin-left: 280px;
+    padding: 20px;
+}
+
+
+/* Profile Card */
+.profile-card {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    margin: auto;
+    position: relative;
+}
+
+.profile-card a {
+    color: #393939;
+    text-decoration: none;
+}
+
+.profile-card a:hover {
+    color: darkgray;
+    text-decoration: none;
+}
+
+.btn-edit-profile {
+    color: white !important;
+}
+
+
+/* Profile Header */
+.profile-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.profile-header h4 {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Styled List */
+.profile-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-section ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-section ul li:last-child {
+    border-bottom: none;
+}
+
+.priority-urgent {
+    color: #dc3545;
+}
+
+.priority-high {
+    color: #ffc107;
+}
+
+.priority-medium {
+    color: #17a2b8;
+}
+
+.priority-low {
+    color: #28a745;
+}
+
+/* Buttons */
+.profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-buttons .btn {
+    width: 48%;
+}
+
+/* project_list */
+.page-header {
+    position: relative;
+    background-color: #f689a8;
+    border-radius: 15px;
+}
+
+.mask {
+    display: none;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #393939;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-create {
+    background-color: #353535;
+    border-color: #353535;
+    color: #f6d5dc;
+    font-size: 1.125rem;
+    margin-left: 1rem;
+}
+
+.btn-create:hover {
+    background: none;
+    border-color: #353535;
+    color: #353535;
+}
+
+.project-name {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: left;
+    color: #393939;
+}
+
+.project-description {
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.no-projects {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #353535;
+}
+
+/* project_detail */
+.new-p-d {
+    color: #343a40;
+
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+}
+
+.task-header a {
+    color: #f6d5dc;
+    background-color: #353535;
+}
+
+.task-header a:hover {
+    color: #353535;
+    background-color: #f6d5dc;
+    border-color: #353535;
+}
+
+.btn-dark-grey {
+    background-color: #7c7c7c;
+    color: #ffffff;
+}
+
+.btn-dark-grey:hover {
+    background-color: #5c5c5c;
+    color: #ffffff;
+}
+
+/* task info */
+.task-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.task-name {
+    text-align: left;
+}

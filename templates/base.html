@@ -1,0 +1,31 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Task Manager</title>
+  {% bootstrap_css %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
+<body>
+<div class="sidebar">
+  {% block sidebar %}
+    {% include "includes/sidebar.html" %}
+  {% endblock %}
+</div>
+
+<div class="main-content">
+  {% block content %}{% endblock %}
+</div>
+
+{% bootstrap_javascript %}
+
+{% block extra_js %}{% endblock %}
+
+</body>
+
+</html>
+

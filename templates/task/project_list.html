@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Projects
+    <a href="{% url 'task:project-create' %}" class="btn btn-create btn-lg">
+      Create
+    </a>
+  </h1>
+
+  {% if project_list %}
+    {% for project in project_list %}
+      <div class="container mt-sm-5">
+        <div class="page-header py-6 py-md-5 my-sm-3 mb-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6 ms-lg-5">
+                {% for team in project.teams.all %}
+                  <h4 class="text-white">Built by {{ team.name }}</h4>
+                {% endfor %}
+                <h1 class="project-name">{{ project.name }}</h1>
+                <p class="lead project-description">{{ project.description }}</p>
+                <a href="{% url 'task:project-detail' pk=project.id %}"
+                   class="nav-link icon-move-right">
+                  View page
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-projects">There are no projects in the service.</p>
+  {% endif %}
+{% endblock %}
