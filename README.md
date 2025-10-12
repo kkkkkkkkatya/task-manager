@@ -9,8 +9,8 @@ You can try the Task Manager online here:
 
 ### **Test User Credentials**
 To explore the platform without signing up, use the following test account:
-- **Login:** `user`
-- **Password:** `user12345`
+- **Login:** `admin`
+- **Password:** `admin123`
 
 ## Visuals
 ### Database Structure
